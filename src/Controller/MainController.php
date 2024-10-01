@@ -14,14 +14,20 @@ class MainController extends AbstractController
     {
         // Récupérer le paramètre 'name' depuis l'URL
         $name = $request->query->get('name');
+        // Récupérer le User-Agent
+        $userAgent = $request->headers->get('User-Agent');
 
-        return new Response('Hello ' . $name);
+
+        return $this->render('main/index.html.twig', [
+            'name' => $name,
+            'userAgent' => $userAgent,
+        ]);
     }
 
     #[Route('/contact', name: 'contact')]
     public function contact(): Response
     {
-        return new Response('contact');
+        return $this->render('main/contact.html.twig');
     }
 }
 
