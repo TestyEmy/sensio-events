@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Events {% endblock %}
+
+{% block body %}
+    <h1>Events List</h1>
+
+    {% if events is empty %}s
+        <p>No events found for this date range.</p>
+    {% else %}
+        <ul>
+            {% for event in events %}
+                <li>
+                    <strong>{{ event.name }}</strong><br>
+                    Start: {{ event.startAt|date('Y-m-d H:i') }}<br>
+                    End: {{ event.endAt|date('Y-m-d H:i') }}<br>
+                    Description: {{ event.description }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

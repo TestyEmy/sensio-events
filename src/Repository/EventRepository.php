@@ -16,6 +16,23 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
+    /**
+     * @return Event[] Returns an array of Event objects
+     */
+    public function findEventsBetweenDates(?string $startDate, ?string $endDate): array
+    {
+        if (null === $startDate || null === $endDate){
+            return $this->findAll();
+        }
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.startAt BETWEEN :startDate AND :endDate')
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->orderBy('e.startAt', 'ASC')
+            ->getQuery()
+            ->execute();
+    }
+
     //    /**
     //     * @return Event[] Returns an array of Event objects
     //     */
